@@ -3,8 +3,6 @@
 
 **ProductHub** is a practice project built while learning the PERN stack (PostgreSQL, Express, React, Node.js). It implements a **product management app** with CRUD operations, 13 customizable themes, and real-time data fetching—a hands-on way to master full-stack development.  
 
-*(Originally followed a YouTube tutorial, then expanded with custom features like rate limiting, bot detection, and scalable file structure.)*  
-
 ---
 
 ## 🚀 Key Features  
