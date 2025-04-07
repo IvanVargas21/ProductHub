@@ -1,0 +1,32 @@
+Packages Installed
+* Express 
+- - simplifies creation of backend server, handling routes, middleware, and HTTP requests/responses.
+
+* dotenv 
+- - loads env variables from a .env file into process.env.
+
+* cors 
+- - allows express server to accepts request from different origins(domains), which is essential if frontend(react) is hosted on a different port/domain than our backend.
+- - By default, browsers blocks frontend, from talking to a backend if they're on different domains/ports
+
+* helmet 
+- - secure Express apps by setting various HTTP headers, adds security best practices (like hiding X-Powered-By, enabling CSP, etc.) to protect our app from common web vulnerabilities.
+
+* morgan 
+- - HTTP request logger middleware for Node.js. Logs detailes about incoming requests (e.g., method, URL, status code, response time) to the console, which is useful for debugging and monitoring.
+
+* @neondatabase/serverless 
+- - driver for connecting to Neon's serverless PostgreSQL database. 
+- - Serverless Postgre platform. 
+- - Allow our Express app to interact with Neon's PostgreSQL database (for queries, transactions, etc.) in a serverless-friendly way.
+
+* @arcjet/node 
+- - library for integrating Arcjet's security and rate-limiting features into Node.js apps.
+
+
+Summary Roles
+* Backend Framework: Express
+* Environment Management: dotenv
+* Security: cors, helmet, @arcjet/node
+* Logging: morgan
+* Database: @neondatabase/serverless (for Neon Postgres)
