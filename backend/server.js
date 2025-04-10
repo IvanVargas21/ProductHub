@@ -4,6 +4,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
 
+import productRoutes from './routes/productRoutes.js';
+
 dotenv.config();
 // Initialize Express app
 const app = express();
@@ -15,12 +17,7 @@ app.use(cors());
 app.use(morgan('dev')); // Log the requests to console
 app.use(helmet()); // Use Helmet middleware = adds security headers
 
-
-app.get('/test-route', (req, res) => {
-		// Log all headers that will be sent in the response
-    console.log(res.getHeaders())
-    res.send('Hello from Test-route!');
-});
+app.use("/api/products", productRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost: ${PORT}`);
