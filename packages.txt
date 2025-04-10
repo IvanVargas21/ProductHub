@@ -10,8 +10,10 @@ Packages Installed
 - - By default, browsers blocks frontend, from talking to a backend if they're on different domains/ports
 
 * helmet 
-- - secure Express apps by setting various HTTP headers, adds security best practices (like hiding X-Powered-By, enabling CSP, etc.) to protect our app from common web vulnerabilities.
-
+- - security middlware for express.
+- - could set various http headers for security.
+- - enables to most important protectiosn so you don't have to manually set each one.
+    
 * morgan 
 - - HTTP request logger middleware for Node.js. Logs detailes about incoming requests (e.g., method, URL, status code, response time) to the console, which is useful for debugging and monitoring.
 
