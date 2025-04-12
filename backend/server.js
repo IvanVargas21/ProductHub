@@ -4,7 +4,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
 
-import productRoutes from './routes/productRoutes.js';
+// import productRoutes from './routes/productRoutes.js';
+import {sql} from './config/db.js'
 
 dotenv.config();
 // Initialize Express app
@@ -17,8 +18,27 @@ app.use(cors());
 app.use(morgan('dev')); // Log the requests to console
 app.use(helmet()); // Use Helmet middleware = adds security headers
 
-app.use("/api/products", productRoutes);
+// app.use("/api/products", productRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost: ${PORT}`);
+async function initDB (){
+    try {
+        await sql `
+            CREATE TABLE IF NOT EXISTS products (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL, 
+                image VARCHAR (255) NOT NULL,
+                price DECIMAL(10, 2) NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `;
+        console.log("Database Initialized Successfully")
+    }catch(error){
+        console.log("Error initDB", error)
+    }
+}
+
+initDB().then(()=>{
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost: ${PORT}`);
+    })
 })
