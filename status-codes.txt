@@ -1,0 +1,29 @@
+Informational Res (1XX)
+- 100: Continue - server has received the request headers and the client should proceed to sent the req body.
+- 101: Switching Protocols - server is switching protocols as requested by the client.
+
+Success Res (2XX)
+- 200: OK - req has successful, and the server returned the requested data.
+- 201: Created - req was successful, and a new resource was created.
+- 202: Accepted - req has been accepted processing, but the processing is not yet successful.
+- 204: No Content - req was successful, but there is no content to send in the response.
+
+Redirection Res (3XX)
+- 301: Moved Permanently - resource has been moved to a new URL permanently.
+- 302: Found - resource has bee temporarily moved to a different URL.
+- 304: Not Modified - The resource has not been modified since the last request (use for caching).
+
+Client Error Res (4XX)
+- 400: Bad Request - server could not understand the req due to invalid syntax.
+- 401: Unathorized - auth is required and has failed or has not been provided.
+- 403: Forbidden - cliend tdoes not have a permission to access the requested resource.
+- 404: Not Found - req resource could not be found on the server.
+- 405: Method Not Allowed - The HTTP method used is not allowed for the requested resource.
+- 422: Unprocessable Entity - server understands the req but cannot process it due to semantic errors.
+
+Server Error Responses (5XX)
+- 500: Internal Server Error - server encountered an unexpected condition that prevented it from fulfilling the request.
+- 501: Not implemented - server does not support the functionality required to fulfill the request.
+- 502: Bad Gateway - server received an invalid resp from an upstream server.
+- 503: Service Unavailable - server is not ready to handle req (e.g., maintenance or overload).
+- 504: Gateway Timeout - server did not receive a timely res from an upstream server.
