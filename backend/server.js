@@ -7,7 +7,7 @@ import helmet from 'helmet';
 import productRoutes from './routes/productRoutes.js';
 
 import {sql} from './config/db.js'
-import aj from './lib/arcjet.js';
+import {aj}  from './lib/arcjet.js';
 
 dotenv.config();
 // Initialize Express app
@@ -22,36 +22,35 @@ app.use(morgan('dev')); // Log the requests to console
 app.use(helmet()); // Use Helmet middleware = adds security headers
 
 // apply arcjet rate-limit to all routes.
-app.use(async(req, res, next)=>{
-    try {
-        const decision = await aj.protect(req, {
-            requested: 1  // each reqs consumes 1 token from rate-limiting bucket.
-        });
+app.use(async (req, res, next) => {
+  try {
+    const decision = await aj.protect(req, {
+      requested: 1, // specifies that each request consumes 1 token
+    });
 
-        if (decision.isDenied) {
-            if(decision.decision.isRateLimit()){
-                res.status(429).json({error: "Too Many Requests"})
-            }else if(decision.reason.isBot()){
-                res.status(403).json({error: "Box access denied"})
-            }else {
-                res.status(403).json({error: "Forbidden"})
-            }
-            return;
-        }
-
-        // check for spoofed bots
-        if (decision.isSpoofed) {
-            res.status(403).json({error: "Spoofed bot detected"})
-            return;
-        }
-
-        // if decision is allowed, continue to the next middleware or route handler
-        next(); 
-    }catch (error){
-        console.error("Error in arcjet", error)
-        return res.status(500).json({error: "Internal Server Error"})
+    if (decision.isDenied()) {
+      if (decision.reason.isRateLimit()) {
+        res.status(429).json({ error: "Too Many Requests" });
+      } else if (decision.reason.isBot()) {
+        res.status(403).json({ error: "Bot access denied" });
+      } else {
+        res.status(403).json({ error: "Forbidden" });
+      }
+      return;
     }
-})
+
+    // check for spoofed bots
+    if (decision.results.some((result) => result.reason.isBot() && result.reason.isSpoofed())) {
+      res.status(403).json({ error: "Spoofed bot detected" });
+      return;
+    }
+
+    next();
+  } catch (error) {
+    console.log("Arcjet error", error);
+    next(error);
+  }
+});
 
 app.use("/api/products", productRoutes);
 

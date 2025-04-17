@@ -1,4 +1,4 @@
-import arcjet, { tokenBucket, shield, detectbot} from '@arcjet/node'
+import arcjet, { tokenBucket, shield, detectBot} from '@arcjet/node'
 
 // imports config function
 // loads env variables from .env file into process.env
@@ -11,11 +11,11 @@ export const aj = arcjet ({
     rules: [
       // shield protects your app from common attack e.g., SQL injection, XSS, CSRF attacks.
       shield({mode:"LIVE"}),
-      detectbot({
+      detectBot({
         mode:"LIVE", // Blocks reqs. Use "DRY_RUN" to log only
         // block all bots excet engines
         allow:[
-          "CATEGORY:SEARCH_ENGINE" // Google, Bing, etc.
+          "CATEGORY:SEARCH_ENGINE", // Google, Bing, etc.
           //  see the full list at https://arcjet.com/bot-list.
           
         ]
